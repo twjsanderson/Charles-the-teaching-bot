@@ -1,1 +1,1 @@
-First line
+ghc Main.hs (to build)
