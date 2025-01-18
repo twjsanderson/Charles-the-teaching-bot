@@ -1,0 +1,4 @@
+Charles The Robot Teacher Menu
+------------------------------
+exit - shuts down the program
+menu - displays the program menu and avaliable commands
