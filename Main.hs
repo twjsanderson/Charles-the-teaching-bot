@@ -14,14 +14,13 @@ initializeScores fileName = do
     let filePath = "content/" ++ fileName ++ ".txt"
     writeFile filePath "0"
 
--- Update the score in the file
 updateScore :: String -> String -> IO ()
 updateScore fileName result = do
-    scoreInt <- getScore fileName  -- Get the current score as an IO Int
+    scoreInt <- getScore fileName
     let newScore = case result of
-            "correct" -> scoreInt + 1  -- Increment score if correct
-            "incorrect" -> scoreInt    -- Keep score if incorrect
-            _ -> scoreInt              -- Default to current score for other cases
+            "correct" -> scoreInt + 1
+            "incorrect" -> scoreInt
+            _ -> scoreInt
 
     let tempfilePath = "content/" ++ fileName ++ "_temp.txt"
     writeFile tempfilePath (show newScore)
@@ -31,15 +30,12 @@ updateScore fileName result = do
 
     renameFile tempfilePath oldfilePath
     
-
--- Function to get the current score from the file
 getScore :: String -> IO Int
 getScore fileName = do
     let filePath = "content/" ++ fileName ++ ".txt"
-    scoreStr <- readFile filePath  -- Read the file content as a string
+    scoreStr <- readFile filePath
     return (read scoreStr :: Int)  -- Convert the string to an Int and return it
 
--- Delete the score file
 deleteFile :: String -> IO ()
 deleteFile fileName = do
     let filePath = "content/" ++ fileName ++ ".txt"
