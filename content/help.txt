@@ -1,0 +1,4 @@
+
+exit - shuts down the program
+menu - takes you back to the course selection menu
+help - shows all available commands

@@ -1,0 +1,15 @@
+
+REST Quiz
+-------------------------------------------------------------------------
+
+Question 4
+
+Is the following statement about the term "URL" true or false?
+
+A URL is similar to the website address that you enter into your 
+browser to visit any webpage. It can also be referred to as a request 
+endpoint.
+
+1. TRUE 
+2. FALSE
+ 

@@ -1,0 +1,13 @@
+
+REST Quiz
+-------------------------------------------------------------------------
+
+Welcome to the REST multiple choice quiz!
+
+You can leave at anytime, by typing (back) into your terminal. This will
+take you back to the REST course and you will lose all quiz progress.
+
+Remember, if you need any other assistance type (help) into your 
+terminal for a list of available commands.
+
+To get started type (start)

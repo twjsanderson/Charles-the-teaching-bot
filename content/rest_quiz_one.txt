@@ -1,0 +1,17 @@
+
+REST Quiz
+-------------------------------------------------------------------------
+
+Question 1
+
+Choose the term that correctly represents the following definition.
+
+This refers to the concept that responses from a RESTful API 
+should produce data in a standardized format (HTML, JSON, 
+etc.). Requests should be able to learn more about the API from 
+metadata like error messages, statuses...
+
+1. Statelessness
+2. Uniform Interfaces
+3. Cacheability
+4. HTTP Statuses

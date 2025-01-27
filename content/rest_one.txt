@@ -1,0 +1,44 @@
+
+Lesson 1 - Intro & Definitions
+---------------------------------------------------------------------
+
+REST defines a set of constraints for how the architecture of a 
+distributed system, like the Web, should behave.
+
+RESTful architecture emphasizes 5 principles:
+
+1. Uniform Interfaces
+    This refers to the concept that responses from a RESTful API 
+    should produce data in a standardized format (HTML, JSON, 
+    etc.). Requests should be able to learn more about the API from 
+    metadata like error messages, statuses and the uniform
+    resource identifiers established by the API.
+
+2. Statelessness
+    Statelessness refers to a communication method in which the 
+    server completes every client request independently of all 
+    previous requests. All requests are isolated from each other.
+ 
+3. Cacheability
+    RESTful websites should support caching, which is the process of 
+    storing some responses on the client or on an intermediary to 
+    improve server response times. We want to reduce the load on 
+    the API by saving commonly used assets somewhere else.
+
+4. Layered System
+    A RESTful API (and client) should be able to make requests to other
+    services for various reasons including, security, storage & business
+    logic.
+
+5. Code on Demand (or on Request)
+    You should be able to pass code to the client so it can be run in a
+    browser. This reduces API load and allows for more dynamic functionality
+    on the client side.
+
+The intent of a RESTful approach was to create an architectural style that 
+remained Scalable, Flexible & Independent of other web components.
+
+Perhaps most importantly, we should remember that modern web API's have use
+technologies, like HTTP, that were moulded to fit with RESTful principles. 
+Software developers made a choice to use these principles as 'guiding light' 
+in the creation of many modern networking tools.

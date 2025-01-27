@@ -1,0 +1,12 @@
+
+REST Quiz
+-------------------------------------------------------------------------
+
+Question 2
+
+Which one of the following statements is not true?
+
+1. He developed the idea in the mid-1990's
+2. REST was created as a new architectural standard for communication on the Web
+3. It was important that REST facilitated speed over ease of adoption
+4. He was involved with the creation of various technologies, including HTTP & URI

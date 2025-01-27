@@ -1,0 +1,34 @@
+
+Lesson 3 - Functionality
+-------------------------------------------------------------------------
+
+In the REST architectural style, the implementation of the client and the 
+implementation of the server can be done independently without each knowing 
+about the other.
+
+The client will send messages to the server (or API) and get responses and
+metadata in standardized way.
+
+Here is a simple diagram that outlines where RESTful principles would be used
+in a modern web application.
+
+
+         --->     --->       --->
+Database      API      (REST)     Client
+         <---     <---       <---
+
+
+REST requires that a client make a request to the server in order to retrieve 
+or modify data on the server. A request generally consists of:
+
+- an HTTP verb, which defines what kind of operation to perform
+- a header, which allows the client to pass along information about the request
+- a path to a resource
+- an optional message body containing data
+
+In the header of the request, the client sends the type of content that it is 
+able to receive from the server. This is called the Accept field, and it ensures 
+that the server does not send data that cannot be understood or processed by the 
+client. 
+
+(reference https://www.codecademy.com/article/what-is-rest)

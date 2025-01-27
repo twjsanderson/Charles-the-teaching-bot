@@ -1,0 +1,21 @@
+
+Lesson 2 - History
+-------------------------------------------------------------------------
+
+Representational State Transfer (REST) was introduced in 2000 by computer 
+scientist Roy Fielding in his doctoral dissertation.
+
+In the mid-1990's, use of the Web was becoming more common around the world.
+As more services were being built, there was an increased need to 
+standardize certain parts of the Web. Fielding was involved with creating 
+some of these (including HTTP & URI).
+
+During this time he built and tested REST as a new architectural standard 
+and used it to identify architectural mismatches. He wanted to create
+something with a low barrier for international adoption.
+
+Fielding was trying to both categorize the existing architecture of the 
+current implementation and identify which aspects should be considered 
+central to the behavioural and performance requirements of the Web.
+
+(Refernce: https://en.wikipedia.org/wiki/REST)

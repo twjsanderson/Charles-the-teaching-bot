@@ -1,12 +1,13 @@
+
                        ≠π                 ------------------------------------------------                      
                       π÷√π                Hello my name is Charles!
                      ππ×πππππππ               
                π∞ππππ√√√∞∞∞√ππ≠π          I am a bot (written in Haskell) designed to teach
-               √√=π ππ   π  π√ππ          software developers how the internet works!           
+               √√=π ππ   π  π√ππ          new software developers how the internet works!           
                π√≠ππ∞∞πππ≈π π∞∞π               
                ππ∞    π√π   π√≠π          ------------------------------------------------           
                π≈π√√∞∞∞√√ππππ≈π     
                  π≈≠ππππ√√≈≈π             Please hit ENTER to get started or type (exit) to            
               π∞≈∞√√π  √≈√≈√√∞√           end the program at anytime           
-             π∞√√∞π≈π    π√≈π≈√√             
-           π∞≈√≈π  √∞  π=√  π√∞√≠π         
+             π∞√√∞π≈π    π√≈π≈√√           
+           π∞≈√≈π  √∞  π=√  π√∞√≠π        For a list of commands type (help)

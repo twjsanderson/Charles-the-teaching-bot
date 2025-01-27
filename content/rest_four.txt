@@ -1,0 +1,112 @@
+
+Lesson 4 - HTTP & Verbs
+-------------------------------------------------------------------------
+
+Unique resource identifier
+
+The server identifies each resource with unique resource identifiers. For 
+REST services, the server typically performs resource identification by 
+using a Uniform Resource Locator (URL). The URL specifies the path to the 
+resource. A URL is similar to the website address that you enter into your 
+browser to visit any webpage. The URL is also called the request endpoint
+and clearly specifies to the server what the client requires.
+
+Method
+Developers often implement RESTful APIs by using the Hypertext Transfer 
+Protocol (HTTP). An HTTP method tells the server what it needs to do to the 
+resource. The following are four common HTTP methods:
+
+GET
+
+Clients use GET to access resources that are located at the specified URL 
+on the server. They can cache GET requests and send parameters in the RESTful 
+API request to instruct the server to filter data before sending.
+
+POST
+
+Clients use POST to send data to the server. They include the data 
+representation with the request. Sending the same POST request multiple 
+times has the side effect of creating the same resource multiple times.
+
+PUT
+
+Clients use PUT to update existing resources on the server. Unlike POST, 
+sending the same PUT request multiple times in a RESTful web service 
+gives the same result.
+
+DELETE
+
+Clients use the DELETE request to remove the resource. A DELETE request 
+can change the server state. However, if the user does not have 
+appropriate authentication, the request fails.
+
+
+AUTHENTICATION
+
+A RESTful web service might have to authenticate requests before it can 
+send a response. Authentication is the process of verifying an identity. 
+
+For example, you can prove your identity by showing an ID card or 
+driver's license. Similarly, RESTful service clients must prove their 
+identity to the server to establish trust.
+
+HTTP authentication
+HTTP defines some authentication schemes that you can use directly when 
+you are implementing REST API. The following are two of these schemes:
+
+Basic authentication
+
+In basic authentication, the client sends the user name and password 
+in the request header. It encodes them with base64, which is an encoding 
+technique that converts the pair into a set of 64 characters for safe 
+transmission.
+
+Bearer authentication
+
+The term bearer authentication refers to the process of giving access 
+control to the token bearer. The bearer token is typically an encrypted 
+string of characters that the server generates in response to a login 
+request. The client sends the token in the request headers to access 
+resources.
+
+
+STATUS
+
+The status line contains a three-digit status code that communicates 
+request success or failure. For instance, 2XX codes indicate success, 
+but 4XX and 5XX codes indicate errors. 3XX codes indicate URL redirection.
+
+The following are some common status codes:
+
+200: Generic success response
+201: POST method success response
+400: Incorrect request that the server cannot process
+404: Resource not found
+
+RESPONSE BODY
+
+The response body contains the resource representation. The server selects 
+an appropriate representation format based on what the request headers 
+contain. For example, if the client requests the name and age of a 
+person named John, the server returns a JSON representation as follows:
+
+'{"name":"John", "age":30}'
+
+EXAMPLE
+
+Here is a simple example of a PUT request to update a user's data.
+
+We can update that customer by PUT ting the new data:
+
+PUT http://fashionboutique.com/customers/123
+Body:
+{
+  “customer”: {
+    “name” = “Scylla Buss”,
+    “email” = “scyllabuss1@codecademy.com”
+  }
+}
+
+(references 
+https://aws.amazon.com/what-is/restful-api/, 
+https://www.codecademy.com/article/what-is-rest)

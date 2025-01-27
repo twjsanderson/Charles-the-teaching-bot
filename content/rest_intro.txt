@@ -1,0 +1,27 @@
+
+Welcome to the course about REST!
+
+In this course you will learn about REST and its relationship to 
+software development on the world wide web.
+
+You can easily move backward or forward between lessons by typing
+the corresponding lesson Command (see syllabus below).
+
+Command | Lesson              | Description
+------------------------------------------------------------------
+intro   | Syllabus            | Course overview & command list
+1       | Intro & Definitions | Learn the basics about REST
+2       | History             | History of REST architecture
+3       | Functionality       | How it works
+4       | HTTP & Verbs        | Practical application
+quiz    | Quiz                | Test your knowledge with a quiz
+
+Once you have made your way through all of the lessons, take the 
+quiz to test your knowledge!
+
+You can exit the course & head back to the main menu at any time by
+typing (menu) in your terminal
+
+You can also type (help) for more options
+
+Good luck!

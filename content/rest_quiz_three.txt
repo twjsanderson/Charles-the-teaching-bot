@@ -1,0 +1,12 @@
+
+REST Quiz
+-------------------------------------------------------------------------
+
+Question 3
+
+Which element is not part of a RESTful request?
+
+1. an HTTP verb, which defines what kind of operation to perform
+2. a header, which allows the client to pass along information about the request
+3. an optional message body containing data
+4. a delimiter, which carries the expiration time of a valid response to the client
