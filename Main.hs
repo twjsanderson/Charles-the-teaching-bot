@@ -7,7 +7,12 @@ main = do
     let scores = ["rest_score"]
     mapM_ initializeScores scores
     showContent "intro"
-    cmdLoop "menu"
+    cmdLoop Menu
+
+cmdLoop :: GameState -> IO ()
+cmdLoop state = do
+    cmd <- getLine
+    handleCommand state (parseInput cmd)
 
 initializeScores :: String -> IO ()
 initializeScores fileName = do
@@ -17,10 +22,7 @@ initializeScores fileName = do
 updateScore :: String -> String -> IO ()
 updateScore fileName result = do
     scoreInt <- getScore fileName
-    let newScore = case result of
-            "correct" -> scoreInt + 1
-            "incorrect" -> scoreInt
-            _ -> scoreInt
+    let newScore = if result == "correct" then scoreInt + 1 else scoreInt
 
     let tempfilePath = "content/" ++ fileName ++ "_temp.txt"
     writeFile tempfilePath (show newScore)
@@ -63,77 +65,90 @@ showContent fileName = do
     content <- readFile filePath
     putStrLn content
 
-handleCommand :: String -> String -> IO ()
-handleCommand loop cmd
-    -- General commands
-    | cmd == "exit" = showContent "exit" >> return ()
-    | cmd == "help" = showContent "help" >> cmdLoop loop
-    | cmd == "menu" = showContent "choose_course" >> cmdLoop "course"
 
-    -- Main Menu commands
-    | loop == "menu" = case cmd of
-        "" -> showContent "choose_course" >> cmdLoop "course"
-        _  -> showContent "unknown" >> cmdLoop "menu"
+data GameState = Menu
+    | Course
+    | Rest
+    | RestLessons
+    | RestQuiz
+    | RestQuestionOne
+    | RestQuestionTwo
+    | RestQuestionThree
+    | RestQuestionFour
+    | RestQuestionBack
+    | RestQuestionEnd
+    deriving (Eq, Show)
 
-    -- Course Choices commands
-    | loop == "course" = case cmd of
-        "1" -> showContent "rest_intro" >> cmdLoop "rest"
-        _  -> showContent "unknown" >> cmdLoop "course"
-    
-    -- REST commands
-    | loop == "rest" = case cmd of
-        "intro" -> showContent "rest_intro" >> cmdLoop "rest"
-        "1" -> showContent "rest_one" >> cmdLoop "rest"
-        "2" -> showContent "rest_two" >> cmdLoop "rest"
-        "3" -> showContent "rest_three" >> cmdLoop "rest"
-        "4" -> showContent "rest_four" >> cmdLoop "rest"
-        "quiz" -> showContent "rest_quiz" >> cmdLoop "rest_quiz"
-        _  -> showContent "unknown" >> cmdLoop "rest"
+data Command = Exit
+    | Help
+    | MenuCmd
+    | Start
+    | Intro
+    | Quiz
+    | Choice Int
+    | Back
+    | Unknown
+    | Empty
+    deriving (Eq, Show)
 
-    | loop == "rest_quiz" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "start" -> showContent "rest_quiz_one" >> cmdLoop "rest_question_one"
-        _  -> showContent "unknown" >> cmdLoop "rest_quiz"
+parseInput :: String -> Command
+parseInput "exit" = Exit
+parseInput "help" = Help
+parseInput "menu" = MenuCmd
+parseInput "back" = Back
+parseInput "intro" = Intro
+parseInput "start" = Start
+parseInput "1" = Choice 1
+parseInput "2" = Choice 2
+parseInput "3" = Choice 3
+parseInput "4" = Choice 4
+parseInput "quiz" = Quiz
+parseInput "" = Empty
+parseInput _ = Unknown
 
-    | loop == "rest_question_one" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "1" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_two" >> cmdLoop "rest_question_two"
-        "2" -> updateScore "rest_score" "correct" >> showContent "rest_quiz_two" >> cmdLoop "rest_question_two"
-        "3" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_two" >> cmdLoop "rest_question_two"
-        "4" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_two" >> cmdLoop "rest_question_two"
-        _  -> showContent "unknown" >> cmdLoop "rest_question_one"
-    
-    | loop == "rest_question_two" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "1" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_three" >> cmdLoop "rest_question_three"
-        "2" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_three" >> cmdLoop "rest_question_three"
-        "3" -> updateScore "rest_score" "correct" >> showContent "rest_quiz_three" >> cmdLoop "rest_question_three"
-        "4" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_three" >> cmdLoop "rest_question_three"
-        _  -> showContent "unknown" >> cmdLoop "rest_question_two"
-    
-    | loop == "rest_question_three" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "1" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_four" >> cmdLoop "rest_question_four"
-        "2" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_four" >> cmdLoop "rest_question_four"
-        "3" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_four" >> cmdLoop "rest_question_four"
-        "4" -> updateScore "rest_score" "correct" >> showContent "rest_quiz_four" >> cmdLoop "rest_question_four"
-        _  -> showContent "unknown" >> cmdLoop "rest_question_three"
-    
-    | loop == "rest_question_four" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "1" -> updateScore "rest_score" "correct" >> showContent "rest_quiz_end" >> cmdLoop "rest_question_end"
-        "2" -> updateScore "rest_score" "incorrect" >> showContent "rest_quiz_end" >> cmdLoop "rest_question_end"
-        _  -> showContent "unknown" >> cmdLoop "rest_question_four"
-    
-    | loop == "rest_question_end" = case cmd of
-        "back" -> resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop "rest"
-        "" -> showScore "rest_score" "4" >> resetScore "rest_score" >> cmdLoop "menu"
-        _  -> showContent "unknown" >> cmdLoop "rest_question_end"
-    
-    -- Catch error & exit
-    | otherwise = showContent "error" >> return ()
 
-cmdLoop :: String -> IO ()
-cmdLoop name = do
-    cmd <- getLine
-    handleCommand name cmd
+handleCommand :: GameState -> Command -> IO ()
+-- Main Menu cmds
+handleCommand Menu Empty = showContent "choose_course" >> cmdLoop Course
+
+-- Course cmds
+handleCommand Course (Choice 1) = showContent "rest_intro" >> cmdLoop RestLessons
+
+-- Rest Lesson 1
+handleCommand RestLessons Intro = showContent "rest_intro" >> cmdLoop RestLessons
+handleCommand RestLessons (Choice 1) = showContent "rest_one" >> cmdLoop RestLessons
+handleCommand RestLessons (Choice 2) = showContent "rest_two" >> cmdLoop RestLessons
+handleCommand RestLessons (Choice 3) = showContent "rest_three" >> cmdLoop RestLessons
+handleCommand RestLessons (Choice 4) = showContent "rest_four" >> cmdLoop RestLessons
+handleCommand RestLessons Quiz = showContent "rest_quiz" >> cmdLoop RestQuiz
+
+-- Rest Quiz
+handleCommand RestQuiz Back = resetScore "rest_score" >> showContent "rest_intro" >> cmdLoop RestLessons
+handleCommand RestQuiz Start = showContent "rest_quiz_one" >> cmdLoop RestQuestionOne
+
+-- Rest Q1
+handleCommand RestQuestionOne (Choice 2) = updateScore "rest_score" "correct" >> showContent "rest_quiz_two" >> cmdLoop RestQuestionTwo
+handleCommand RestQuestionOne (Choice _) = updateScore "rest_score" "incorrect" >> showContent "rest_quiz_two" >> cmdLoop RestQuestionTwo
+
+-- Rest Q2
+handleCommand RestQuestionTwo (Choice 3) = updateScore "rest_score" "correct" >> showContent "rest_quiz_three" >> cmdLoop RestQuestionThree
+handleCommand RestQuestionTwo (Choice _) = updateScore "rest_score" "incorrect" >> showContent "rest_quiz_three" >> cmdLoop RestQuestionThree
+
+-- Rest Q3
+handleCommand RestQuestionThree (Choice 4) = updateScore "rest_score" "correct" >> showContent "rest_quiz_four" >> cmdLoop RestQuestionFour
+handleCommand RestQuestionThree (Choice _) = updateScore "rest_score" "incorrect" >> showContent "rest_quiz_four" >> cmdLoop RestQuestionFour
+
+-- Rest Q4
+handleCommand RestQuestionFour (Choice 1) = updateScore "rest_score" "correct" >> showContent "rest_quiz_end_1" >> cmdLoop RestQuestionEnd
+handleCommand RestQuestionFour (Choice _) = updateScore "rest_score" "incorrect" >> showContent "rest_quiz_end_1" >> cmdLoop RestQuestionEnd
+
+-- Rest Quiz End 
+handleCommand RestQuestionEnd Exit = showScore "rest_score" "4" >> showContent "exit" >> return ()
+handleCommand RestQuestionEnd _ = showScore "rest_score" "4" >> resetScore "rest_score" >> showContent "rest_quiz_end_2" >> cmdLoop Menu
+
+-- Handle App Wide cmds & errors
+handleCommand state MenuCmd = showContent "choose_course" >> cmdLoop Course
+handleCommand state Empty = showContent "unknown" >> cmdLoop state
+handleCommand state Exit = showContent "exit" >> return ()
+handleCommand state Help = showContent "help" >> cmdLoop state
+handleCommand state _ = showContent "unknown" >> cmdLoop state

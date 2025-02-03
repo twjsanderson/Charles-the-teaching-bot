@@ -1,0 +1,2 @@
+
+Type ENTER for courses menu or type (exit) to leave program
